@@ -1,0 +1,26 @@
+import express from "express";
+import bodyParser from "body-parser";
+import projectRoutes from "./src/routes/projectRoutes.js"
+import authRoutes from "./src/routes/authRoutes.js";
+
+const app = express();
+const PORT = 6000;
+
+
+//bodyparser 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+projectRoutes(app);
+authRoutes(app);
+
+// serving static files 
+app.use(express.static('public'));
+
+app.get('/', (req, res) =>
+    res.send(`Node and express server running on port ${PORT}`)
+);
+
+app.listen(PORT, () =>
+    console.log(`Your server is running on port ${PORT}`)
+);
