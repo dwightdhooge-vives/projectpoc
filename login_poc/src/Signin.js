@@ -32,33 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// async function loginUser(credentials) {
-//   return fetch('/users/current.json', {
-//     method: 'GET',
-//     headers: {
-//       // 'Authorization': 'Basic ' + Buffer.from("dwight.dhooge:G@fS$1qRuB0u", 'utf-8').toString('base64')
-//       'Authorization': 'Basic ' + Buffer.from(credentials.username + ':' + credentials.password, 'utf-8').toString('base64'),
-//       'X-Requested-With': 'XMLHttpRequest'
-//     },
-//   }).then(response => {
-//     if(response.ok){
-//         return response.json();
-//     }
-//     return Promise.reject(response);
-//   }).catch(e => {
-//     if(e.status === 401){
-//         console.log(e);
-//         return e;
-//     }
-//     // return Promise.reject(e.json());
-// })
-// }
-
 async function loginUser(credentials) {
   return fetch('/login', {
     method: 'GET',
     headers: {
-      // 'Authorization': 'Basic ' + Buffer.from("dwight.dhooge:G@fS$1qRuB0u", 'utf-8').toString('base64')
+      //Authorizing
       'Authorization': 'Basic ' + Buffer.from(credentials.username + ':' + credentials.password, 'utf-8').toString('base64'),
     },
   }).then(response => {

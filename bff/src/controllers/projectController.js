@@ -5,7 +5,6 @@ const requestOptions = (request) => {
     return {
         method: 'GET',
         headers: new Headers({
-            // "X-Redmine-API-Key":  "36a60f5bee058b9768946ed31ecb9fcafd3dcf65"
             "X-Redmine-API-Key": request.headers['api_key']
         }),
         redirect: 'follow'
@@ -38,9 +37,6 @@ export const getProjectMembers = (req, res) => {
 
     fetch('https://projectwerk.vives.be/projects/' + req.params.projectID + '/memberships.json', requestOptions(req))
         .then(resp => {
-            // return resp.filter(function(o){
-            //     return o.name = "Supervisor";
-            // })
             return resp.json();
         })
         .then((json) => 

@@ -84,9 +84,7 @@ export default function Profile() {
       <h1>{project.id} {project.name} </h1>
       <h2>{project.description}</h2>
       </div>
-      
-      //  <h1> {projects.id} {projects.name} </h1>
-    ))} 
+          ))} 
   </ul>
   )
  }
