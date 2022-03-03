@@ -57,37 +57,91 @@ export default function Profile() {
   };
 
   function ProjectList() {
-    const[data, setData] = useState(null);
-  
+    const [data, setData] = useState(null);
+
     useEffect(() => {
       fetch("/projects", requestOptions)
-      .then(res => res.json())
-      .then(setData)
-      .catch(console.error);
+        .then(res => res.json())
+        .then(setData)
+        .catch(console.error);
     }, []);
- 
+
     if (data) {
       return (
         <div>
-         <Project projects={data.projects} />
+          <h1>List of projects of logged in Supervisor</h1>
+
+          <Project projects={data.projects} />
         </div>
       )
     }
     return null;
- }
+  }
 
- function Project({projects}) {
-  return (
-  <ul>
-    {projects.map(project => (
-      <div key={project.id}>
-      <h1>{project.id} {project.name} </h1>
-      <h2>{project.description}</h2>
-      </div>
-          ))} 
-  </ul>
-  )
- }
+  function GitBranchesList() {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+      fetch("/git/branches", requestOptions)
+        .then(res => res.json())
+        .then(setData)
+        .catch(console.error);
+    }, []);
+
+    if (data) {
+      return (
+        <div>
+          <h2>Available branches are</h2>
+          <ul>
+            {data.map(branch => (
+              <li>{branch}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    return null;
+  }
+
+  function GitCommitList() {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+      fetch("/git/commits?branch=master&amount=5", requestOptions)
+        .then(res => res.json())
+        .then(setData)
+        .catch(console.error);
+    }, []);
+
+    if (data) {
+      return (
+        <div>
+          <h2>Latest Commits: </h2>
+          <ul>
+            {data.map(cmt => (
+              <li>{cmt.commit.message} from {cmt.commit.author.name} </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    return null;
+  }
+
+
+
+  function Project({ projects }) {
+    return (
+      <ul>
+        {projects.map(project => (
+          <div key={project.id}>
+            <h3>{project.id} {project.name} </h3>
+            <h4>{project.description}</h4>
+          </div>
+        ))}
+      </ul>
+    )
+  }
 
   return (
     <div className={classes.root}>
@@ -96,12 +150,12 @@ export default function Profile() {
           <Typography variant="h6" className={classes.title}>
             Profile
           </Typography>
-            <div>
+          <div>
             <IconButton onClick={handleMenu} color="inherit">
               <Avatar src={user.avatar} />
             </IconButton>
-            <Menu id="menu-appbar" 
-              anchorEl={anchorEl} 
+            <Menu id="menu-appbar"
+              anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
             >
@@ -113,11 +167,16 @@ export default function Profile() {
       <Card className={classes.root} variant="outlined">
         <CardContent>
           <Typography variant="h5">
-          Welcome {user.firstname} {user.lastname}
+            Welcome {user.firstname} {user.lastname}
           </Typography>
         </CardContent>
       </Card>
-      <ProjectList></ProjectList>
+      <body>
+        <ProjectList></ProjectList>
+        <h1>GIT info:</h1>
+        <GitBranchesList></GitBranchesList>
+        <GitCommitList></GitCommitList>
+      </body>
     </div>
   );
 }
