@@ -60,6 +60,3 @@ export const getProjectMembers = (req, res) => {
             return res.json(data)
         })
 }
-
-
-
