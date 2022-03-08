@@ -41,7 +41,8 @@ async function loginUser(credentials) {
     },
   }).then(response => {
     if(response.ok){
-        return response.json();
+      localStorage.setItem('Authorization', Buffer.from(credentials.username + ':' + credentials.password, 'utf-8').toString('base64'))
+      return response.json();
     }
     return Promise.reject(response);
   }).catch(e => {
@@ -72,7 +73,6 @@ export default function Signin() {
         timer: 2000,
       })
         .then(async (value) => {
-          // const data = await response.json();
           console.log("success")
           console.log(response.user)
           console.log(response.user.api_key)
@@ -81,7 +81,7 @@ export default function Signin() {
           window.location.href = "/profile";
         });
     } else {
-      console.log("failxx")
+      console.log("login failed")
       swal("Failed", "Incorrect credentials", "error");
     }
   }
