@@ -9,7 +9,6 @@ import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import ReactDOM from 'react-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,7 +81,13 @@ export default function Profile() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch("/git/branches", requestOptions)
+      fetch("/git/branches", {
+        method: 'GET',
+        headers: {
+          //Authorizing 
+          'Authorization': localStorage.getItem('Authorization'),
+        },
+      })
         .then(res => res.json())
         .then(setData)
         .catch(console.error);
@@ -107,7 +112,13 @@ export default function Profile() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch("/git/commits?branch=master&amount=5", requestOptions)
+      fetch("/git/commits?branch=master&amount=5", {
+        method: 'GET',
+        headers: {
+          //Authorizing 
+          'Authorization': localStorage.getItem('Authorization'),
+        },
+      })
         .then(res => res.json())
         .then(setData)
         .catch(console.error);
