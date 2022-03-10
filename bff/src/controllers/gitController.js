@@ -48,7 +48,7 @@ async function getRemoteBranches() {
 export const getBranches = (req, res) => {
     rmGitDir()
     cloneRepo(req).
-        then(test => cloneRepo(req))
+        then(test => pullRepo(req))
         .then(test => getRemoteBranches())
         .then((data) => {
             res.json(data);

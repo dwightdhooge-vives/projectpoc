@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import projectRoutes from "./src/routes/projectRoutes.js"
 import authRoutes from "./src/routes/authRoutes.js";
 import gitRoutes from "./src/routes/gitRoutes.js";
+import fileRoutes from "./src/routes/fileRoutes.js";
 
 const app = express();
 const PORT = 6000;
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 projectRoutes(app);
 authRoutes(app);
 gitRoutes(app);
+fileRoutes(app)
 
 // serving static files 
 app.use(express.static('public'));
