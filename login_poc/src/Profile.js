@@ -98,8 +98,8 @@ export default function Profile() {
         <div>
           <h2>Available branches are</h2>
           <ul>
-            {data.map(branch => (
-              <li>{branch}</li>
+            {data.map((branch,index) => (
+              <li key={index}>{branch}</li>
             ))}
           </ul>
         </div>
@@ -108,11 +108,11 @@ export default function Profile() {
     return null;
   }
 
-  function GitCommitList() {
+  function GitCommitList({branch, amount}) {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch("/git/commits?branch=master&amount=5", {
+      fetch("/git/commits?branch=" + branch + "&amount=" + amount, {
         method: 'GET',
         headers: {
           //Authorizing 
@@ -130,7 +130,32 @@ export default function Profile() {
           <h2>Latest Commits: </h2>
           <ul>
             {data.map(cmt => (
-              <li>{cmt.commit.message} from {cmt.commit.author.name} </li>
+              <li key={cmt.oid}>{cmt.commit.message} from {cmt.commit.author.name} </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    return null;
+  }
+
+  function FilesList({ projectID }) {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+      fetch("/projects/" + projectID +"/dmsf/files", requestOptions)
+        .then(res => res.json())
+        .then(setData)
+        .catch(console.error);
+    }, []);
+
+    if (data) {
+      return (
+        <div>
+          <h2>Added Files </h2>
+          <ul>
+            {data.map(file => (
+              <li key={file.id}>{file.id} : {file.name} </li>
             ))}
           </ul>
         </div>
@@ -182,12 +207,12 @@ export default function Profile() {
           </Typography>
         </CardContent>
       </Card>
-      <body>
         <ProjectList></ProjectList>
         <h1>GIT info:</h1>
         <GitBranchesList></GitBranchesList>
-        <GitCommitList></GitCommitList>
-      </body>
+        <GitCommitList branch={"master"} amount={5}></GitCommitList>
+        <h1>DMSF info:</h1>
+        <FilesList projectID={265}></FilesList>
     </div>
   );
 }
