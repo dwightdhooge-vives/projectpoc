@@ -170,10 +170,10 @@ export default function Profile() {
     return (
       <ul>
         {projects.map(project => (
-          <div key={project.id}>
+          <li key={project.id}>
             <h3>{project.id} {project.name} </h3>
-            <h4>{project.description}</h4>
-          </div>
+            <p><em>{project.description}</em></p>
+          </li>
         ))}
       </ul>
     )
