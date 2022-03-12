@@ -11,14 +11,13 @@ const requestOptions = (request) => {
     }
 };
 
-
 export const getProjects = (req, res) => {
     fetch('https://projectwerk.vives.be/projects.json', requestOptions(req))
         .then(resp => {
             return resp.json()
         })
         .then((data) => {
-            console.log(data)
+            // console.log(data)
             res.json(data);
         })
 }
@@ -39,20 +38,19 @@ export const getProjectMembers = (req, res) => {
         .then(resp => {
             return resp.json();
         })
-        .then((json) => 
-        {
-            if(req.query.role === undefined){
+        .then((json) => {
+            if (req.query.role === undefined) {
                 console.log("No qeury params found");
                 return json;
             }
             else {
                 console.log("qeury params found");
                 let members = json.memberships.filter(
-                    eachObj => eachObj.roles.some(({name}) => name === req.query.role
+                    eachObj => eachObj.roles.some(({ name }) => name === req.query.role
                     ));
-                    
-                    console.log(members)
-                
+
+                console.log(members)
+
                 return members
             }
         })
@@ -60,6 +58,3 @@ export const getProjectMembers = (req, res) => {
             return res.json(data)
         })
 }
-
-
-

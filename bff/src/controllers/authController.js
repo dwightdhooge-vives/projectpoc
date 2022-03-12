@@ -6,7 +6,7 @@ export const getUser = (req, res) => {
     fetch('https://projectwerk.vives.be/users/current.json', {
         method: 'GET',
         headers: {
-          'Authorization': req.headers['authorization']
+            'Authorization': req.headers['authorization']
         }
     })
         .then(resp => {
@@ -16,6 +16,3 @@ export const getUser = (req, res) => {
             res.json(data);
         })
 }
-
-
-
