@@ -1,6 +1,30 @@
  version: "3.8"
 
  services:
+  api:
+    build:
+      dockerfile: dockerfile
+      context: "./bff"
+#    depends_on:
+      #- mysql_db
+    volumes:
+      - /app/node_modules
+      - ./bff:/app
+#    environment:
+      #<<: *common-variables
+      #MYSQL_HOST_IP: mysql_db
+    command: "npm start"
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: dockerfile
+      context: ./login_poc
+    volumes:
+      - /app/node_modules
+      - ./login_poc:/app
+    command: "npm start"
   nginx:
       depends_on:
         - api
@@ -11,25 +35,3 @@
         context: ./nginx
       ports:
         - "3050:80"
-  api:
-    build:
-      dockerfile: Dockerfile
-      context: "./bff"
-#    depends_on:
-      #- mysql_db
-    volumes:
-      - /app/node_modules
-      - ./bff:/app
-#    environment:
-      #<<: *common-variables
-      #MYSQL_HOST_IP: mysql_db
-  client:
-    stdin_open: true
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    build:
-      dockerfile: Dockerfile
-      context: ./login_poc
-    volumes:
-      - /app/node_modules
-      - ./login_poc:/app
