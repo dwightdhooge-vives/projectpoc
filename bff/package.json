@@ -6,12 +6,13 @@
   "type": "module",
   "scripts": {
     "start": "babel-node index.js",
-    "dev" : "nodemon --exec npm start"
+    "dev": "nodemon --exec npm start"
   },
   "author": "Dwight D.",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "isomorphic-git": "^1.12.1",
     "node-fetch": "^3.2.0",
