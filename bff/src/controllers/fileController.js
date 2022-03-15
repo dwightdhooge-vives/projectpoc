@@ -4,7 +4,7 @@ const requestOptions = (request) => {
     return {
         method: 'GET',
         headers: new Headers({
-            "X-Redmine-API-Key": request.headers['api_key']
+            "X-Redmine-API-Key": request.headers['api-key']
         }),
         redirect: 'follow',
     }
