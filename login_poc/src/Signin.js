@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 async function loginUser(credentials) {
-  return fetch('/login', {
+  return fetch('/api/login', {
     method: 'GET',
     headers: {
       //Authorizing
@@ -76,7 +76,7 @@ export default function Signin() {
           console.log("success")
           console.log(response.user)
           console.log(response.user.api_key)
-          localStorage.setItem('api_key', response.user.api_key);
+          localStorage.setItem('api-key', response.user.api_key);
           localStorage.setItem('user', JSON.stringify(response.user));
           window.location.href = "/profile";
         });

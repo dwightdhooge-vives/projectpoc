@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 var myHeaders = new Headers();
-myHeaders.append("api_key", localStorage.getItem('api_key'));
+myHeaders.append("api-key", localStorage.getItem('api-key'));
 
 var requestOptions = {
   method: 'GET',
@@ -50,7 +50,7 @@ export default function Profile() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("api_key");
+    localStorage.removeItem("api-key");
     localStorage.removeItem("user");
     window.location.href = "/";
   };
@@ -59,7 +59,7 @@ export default function Profile() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch("/projects", requestOptions)
+      fetch("/api/projects", requestOptions)
         .then(res => res.json())
         .then(setData)
         .catch(console.error);
@@ -81,7 +81,7 @@ export default function Profile() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch("/git/branches", {
+      fetch("/api/git/branches", {
         method: 'GET',
         headers: {
           //Authorizing 
@@ -112,7 +112,7 @@ export default function Profile() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch("/git/commits?branch=" + branch + "&amount=" + amount, {
+      fetch("/api/git/commits?branch=" + branch + "&amount=" + amount, {
         method: 'GET',
         headers: {
           //Authorizing 
@@ -143,7 +143,7 @@ export default function Profile() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch("/projects/" + projectID +"/dmsf/files", requestOptions)
+      fetch("/api/projects/" + projectID +"/dmsf/files", requestOptions)
         .then(res => res.json())
         .then(setData)
         .catch(console.error);

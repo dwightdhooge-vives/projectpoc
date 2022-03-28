@@ -5,7 +5,7 @@ import Signin from './Signin';
 import Profile from './Profile';
 
 function App() {
-  const token = localStorage.getItem('api_key');
+  const token = localStorage.getItem('api-key');
 
   if(!token) {
     return <Signin />

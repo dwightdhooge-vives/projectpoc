@@ -4,14 +4,15 @@ import projectRoutes from "./src/routes/projectRoutes.js"
 import authRoutes from "./src/routes/authRoutes.js";
 import gitRoutes from "./src/routes/gitRoutes.js";
 import fileRoutes from "./src/routes/fileRoutes.js";
+import cors from "cors"
 
 const app = express();
 const PORT = 6000;
 
-
 //bodyparser 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors())
 
 projectRoutes(app);
 authRoutes(app);
